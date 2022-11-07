@@ -4,50 +4,44 @@ using UnityEngine;
 
 public class EnemyPoint : MonoBehaviour
 {
-
-    public float speed = 140;
-    public Transform ball;
+    [SerializeField] public GameObject keepHolding;
+    [SerializeField] public GameObject myEnemy;
+    [SerializeField] public GameManager gameManager;
+    [SerializeField] public AudioSource soundHit;
     private float stoppingDistance = 70;
-    private float force = 5000f;
-    public GameObject keepHolding;
-    public GameObject myEnemy;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        ball = GameObject.FindGameObjectWithTag("Ball").transform;
-    }
-
+    private float force = 5500f;
+    public float speed = 140;
     // Update is called once per frame
-    void FixedUpdate()
+    void LateUpdate()
     {
         EnemyWalk();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Vector3 dir = ball.position - transform.position;
-       
-        if (ball)
-        {
-            other.GetComponent<Rigidbody>().velocity = dir.normalized * force * Time.deltaTime ;
-        }
-       
-    }
+        Vector3 dir = gameManager.spawnedBall.position - transform.position;
 
+        if (gameManager.spawnedBall)
+        {
+            soundHit.Play();
+            other.GetComponent<Rigidbody>().velocity = dir.normalized * force * Time.deltaTime;
+        }
+
+    }
+    
     void EnemyWalk()
     {
-        float rangeX = Mathf.Clamp(transform.position.x, -50, 65);
-        float rangeY = Mathf.Clamp(transform.position.y, 5, 5);
-        float rangeZ = Mathf.Clamp(transform.position.z, -58, -58);
+        float rangeX = Mathf.Clamp(transform.position.x, -41, 46.5f);
+        float rangeY = Mathf.Clamp(transform.position.y, 3.5f, 3.5f);
+        float rangeZ = Mathf.Clamp(transform.position.z, -54.5f, -54.5f);
 
         myEnemy.transform.position = new Vector3(rangeX, rangeY, rangeZ);
 
-        if (Vector3.Distance(keepHolding.transform.position, ball.position) < stoppingDistance)
+        if (Vector3.Distance(keepHolding.transform.position, gameManager.spawnedBall.position) < stoppingDistance)
         {
-            myEnemy.transform.position = Vector3.MoveTowards(myEnemy.transform.position, ball.position, speed * Time.deltaTime);
+            myEnemy.transform.position = Vector3.MoveTowards(myEnemy.transform.position, gameManager.spawnedBall.position, speed * Time.deltaTime);
         }
 
     }
-  
+
 }

@@ -97,7 +97,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15.435201, y: 7.477126, z: 19.8232}
+  m_Size: {x: 17, y: 7.477126, z: 19.8232}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &778509507816105968
 Rigidbody:
@@ -131,3 +131,4 @@ MonoBehaviour:
   ball: {fileID: 2340644017387028880, guid: f4a74d584d9f7a9488d9bf39ce3aaf1b, type: 3}
   keepHolding: {fileID: 0}
   myEnemy: {fileID: 7519120065558747453}
+  gameManager: {fileID: 0}
